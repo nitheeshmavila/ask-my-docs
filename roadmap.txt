@@ -1,0 +1,43 @@
+Ask My Docs — Product Roadmap
+Vision
+A production-grade clinical knowledge assistant that answers questions grounded strictly in large-scale medical literature — PubMed abstracts, CDC/WHO guidelines, FDA drug labels — with every claim traced to a source. Built to demonstrate that RAG is only meaningful at the scale where retrieval is a real problem.
+
+Final Destination: Healthcare Knowledge Assistant
+The product
+A clinical Q&A system where doctors, researchers, or medical students upload or query against a pre-loaded corpus of authoritative medical literature and get answers that are:
+
+Grounded — every claim traced to a specific source chunk
+Cited — exact document, section, and passage referenced
+Honest — system says "not found in literature" rather than hallucinating
+
+Example query the final system handles
+
+"What is the recommended first-line treatment for community-acquired pneumonia in adults with penicillin allergy?"
+Returns an answer citing the exact CDC/IDSA guideline passage — not general LLM knowledge.
+
+Target corpus (v1 — single disease domain, TBD)
+SourceVolumeAccessPubMed abstractsHundreds of thousands (filtered by domain)NCBI E-utilities API — freeCDC clinical guidelinesDozens of multi-hundred-page PDFsPublic PDFsWHO treatment guidelinesProtocols across condition categoriesPublic PDFsFDA drug labels100,000+ approved labelsopenFDA API — free, structured JSON
+
+Corpus principle: Large enough that no context window can hold it and no general LLM knows it reliably. Retrieval must be a real problem, not a toy exercise.
+
+Disease domain for v1
+To be decided — candidates:
+
+Type 2 Diabetes — ADA guidelines, metformin/GLP-1/insulin protocols, CDC + FDA drug labels
+Community-acquired pneumonia — IDSA/CDC/WHO guidelines, antibiotic stewardship angle
+Hypertension — JNC guidelines, multiple drug classes, comorbidity interactions
+
+
+Why every RAG component earns its place
+ComponentWhy it matters in healthcareHybrid retrieval (BM25 + vector)Medical queries mix exact terms ("metformin", "HbA1c") with semantic meaning — neither BM25 nor vector alone is sufficientCross-encoder reranker"Cardiac arrest management" must rank ACLS guidelines above tangentially related papersCitation enforcement"The LLM said so" is not acceptable clinically — every claim must be traceableHallucination refusalIf the corpus doesn't contain the answer, say so — don't inventRAGAS eval pipelineFaithfulness and answer relevancy are measurable and meaningful at this scale
+
+Learning Path (in order)
+StageWhat you buildWhat you learn1LLM API basicsHow to call Claude/OpenAI, prompt structure, token limits2EmbeddingsWhat they are, why they power semantic search3Naive RAGThe core retrieve → augment → generate pattern4Hybrid retrievalBM25 + vector search, Reciprocal Rank Fusion5RerankingCross-encoder reranker on top of hybrid results6Citation enforcementConstrain LLM to grounded chunks, verifier checks attribution7Web appReact + TypeScript frontend, FastAPI backend8AWS deploymentECS Fargate, S3, Lambda, CloudFront, ALB, CDK9CI/CD + eval pipelineRAGAS-gated GitHub Actions deployments10Healthcare corpusPubMed ingestion, FDA labels, CDC/WHO guidelines at scale
+
+Benchmark story (portfolio differentiator)
+Each retrieval stage benchmarked against the same medical queries using RAGAS:
+Naive RAG  →  Hybrid RAG  →  Hybrid + Rerank  →  + Citation enforcement
+    ↓               ↓                ↓                      ↓
+ baseline       better recall    correct source          no hallucination
+                on drug names    ranked first             grounded answers
+This delta, documented with real scores on a real medical corpus, is the portfolio centerpiece.
