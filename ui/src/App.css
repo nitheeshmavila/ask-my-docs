@@ -1,0 +1,356 @@
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Top bar */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: #ffffff;
+  border-bottom: 1px solid #efefef;
+  padding: 0 24px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+}
+
+.top-bar-inner {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.top-bar-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0d0d0d;
+  white-space: nowrap;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.top-bar-sep {
+  color: #d0d0d0;
+  font-size: 14px;
+}
+
+.top-bar-file {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #666666;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.top-bar-file-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: #999999;
+}
+
+.new-session-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0d0d0d;
+  background: #f4f4f4;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: background-color 0.15s;
+  white-space: nowrap;
+}
+
+.new-session-button:hover {
+  background: #e8e8e8;
+}
+
+.new-session-button svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* Upload status banner */
+.upload-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  text-align: center;
+  padding: 10px 24px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.upload-banner.with-topbar {
+  top: 52px;
+}
+
+.upload-banner-content {
+  font-size: 13px;
+  color: #666666;
+}
+
+.upload-banner-content.error {
+  color: #d44;
+}
+
+/* Messages area */
+.messages-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 120px;
+}
+
+.messages-wrapper.with-topbar {
+  padding-top: 52px;
+}
+
+.messages-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+
+/* Welcome / empty state */
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 200px);
+  gap: 16px;
+  text-align: center;
+}
+
+.welcome-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0d0d0d;
+}
+
+.welcome-sub {
+  font-size: 15px;
+  color: #999999;
+}
+
+.welcome-upload {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0d0d0d;
+  background: #f4f4f4;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: background-color 0.15s;
+}
+
+.welcome-upload:hover {
+  background: #ececec;
+}
+
+.welcome-upload:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.welcome-upload svg {
+  width: 18px;
+  height: 18px;
+}
+
+.upload-input {
+  display: none;
+}
+
+/* Session started but no messages yet */
+.session-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 260px);
+  font-size: 15px;
+  color: #cccccc;
+}
+
+/* Message styles */
+.message {
+  margin-bottom: 32px;
+}
+
+.message-user {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.message-user-bubble {
+  padding: 10px 16px;
+  background: #f0f0f0;
+  border-radius: 18px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #0d0d0d;
+  word-wrap: break-word;
+  max-width: 80%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.message-assistant {
+  padding: 0;
+}
+
+.message-content {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #2d2d2d;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.message-loading {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 0;
+  height: 24px;
+}
+
+.loading-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #b0b0b0;
+  animation: bounce 1.2s ease-in-out infinite;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes bounce {
+  0%, 60%, 100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+/* Input area */
+.input-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 24px 24px;
+  background: linear-gradient(transparent, #ffffff 40%);
+  pointer-events: none;
+}
+
+.input-container {
+  max-width: 680px;
+  margin: 0 auto;
+  pointer-events: auto;
+}
+
+.input-box {
+  display: flex;
+  align-items: flex-end;
+  background: #f4f4f4;
+  border-radius: 24px;
+  padding: 8px 8px 8px 20px;
+  gap: 8px;
+  transition: box-shadow 0.15s;
+}
+
+.input-box:focus-within {
+  box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 8px 0;
+  font-size: 15px;
+  color: #0d0d0d;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  resize: none;
+  line-height: 1.5;
+  max-height: 150px;
+  min-height: 24px;
+}
+
+.chat-input::placeholder {
+  color: #999999;
+}
+
+.send-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #0d0d0d;
+  color: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.15s;
+  margin-bottom: 4px;
+}
+
+.send-button:hover {
+  background: #333333;
+}
+
+.send-button:disabled {
+  background: #d9d9d9;
+  cursor: not-allowed;
+}
+
+.send-button svg {
+  width: 16px;
+  height: 16px;
+}
